@@ -3,6 +3,11 @@ pipeline {
             label 'jenkins-jnlp-slave'
     }
     stages {
+        stage('Clone Repo') {
+            steps { 
+                checkout scm
+            }
+        }
         stage('Test environnement stage') {
             steps {
                 echo 'test the first mvn package'
