@@ -32,6 +32,10 @@ pipeline {
 
     }    
 }
+//cat << EOF > Dockerfile
+//FROM alpine:latest
+//RUN pwd
+//EOF
     
         
     
