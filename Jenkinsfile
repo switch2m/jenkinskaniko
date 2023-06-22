@@ -3,6 +3,7 @@ pipeline {
     kubernetes {
       yamlFile 'builder.yaml'
     }
+    }
     stages {
     stage('Kaniko Build & Push Image') {
       steps {
