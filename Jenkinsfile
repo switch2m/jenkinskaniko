@@ -3,9 +3,17 @@ pipeline {
     kubernetes {
       yamlFile 'builder.yaml'
     }
-  }
-
-  stages {
+    stages {
+        stage('Test environnement stage') {
+            steps {
+                echo 'test the first mvn package'
+                sh '''
+                    pwd
+                    ls
+                '''
+            }
+        }
+        
     stage('Kaniko Build & Push Image') {
       steps {
         container('kaniko') {
@@ -21,6 +29,10 @@ pipeline {
     }
   }
 }
+//cat << EOF > Dockerfile
+//FROM alpine:latest
+//RUN pwd
+//EOF
     
         
     
