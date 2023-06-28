@@ -1,7 +1,10 @@
 pipeline {
     agent {
-          yamlFile 'builder.yaml'
+        kubernetes {
+            yamlFile 'kaniko.yaml'
+        }
     }
+
     stages {
     stage('Kaniko Build & Push Image') {
       steps {
