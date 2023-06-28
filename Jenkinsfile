@@ -1,14 +1,14 @@
 pipeline {
     agent {
-        kubernetes {
-            yamlFile 'kaniko.yaml'
+        label {
+            "jenkins-slave-jnlp"
         }
     }
 
     stages {
     stage('Kaniko Build & Push Image') {
       steps {
-        container('test') {
+        container('kaniko') {
           script {
             sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
