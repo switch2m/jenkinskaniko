@@ -1,10 +1,8 @@
 pipeline {
     agent {
-        label {
-            "jenkins-slave-jnlp"
-        }
+            label 'jenkins-slave-jnlp'
     }
-
+  
     stages {
     stage('Kaniko Build & Push Image') {
       steps {
