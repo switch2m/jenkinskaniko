@@ -24,5 +24,6 @@ steps:
       # Write your commands here
       echo 'Hello world'
       cd access
+      go mod init
       go run .
 
