@@ -25,7 +25,6 @@ steps:
       echo 'Hello world'
       cd access
       ls -l
-      go mod init
-      go get github.com/okta/okta-sdk-golang/v2@latest
+      go get
       go run main.go
 
