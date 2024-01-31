@@ -26,5 +26,6 @@ steps:
       cd access
       ls -l
       go mod init
+      go get github.com/okta/okta-sdk-golang/v2@latest
       go run main.go
 
