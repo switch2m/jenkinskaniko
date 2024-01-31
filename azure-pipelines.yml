@@ -22,5 +22,7 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      
       echo 'Hello world'
+      cd access
+      go run .
+
