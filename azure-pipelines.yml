@@ -25,6 +25,7 @@ steps:
       echo 'Hello world'
       cd access
       ls -l
+      go mod init
       go get
       go run main.go
 
