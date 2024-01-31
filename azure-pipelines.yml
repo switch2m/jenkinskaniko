@@ -24,7 +24,7 @@ steps:
       # Write your commands here
       echo 'Hello world'
       cd access
-      ls
+      ls -l
       go mod init
-      go run .
+      go run main.go
 
