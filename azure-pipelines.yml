@@ -1,32 +1,27 @@
-# Starter pipeline
+trigger: none
 
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+parameters:
+- name: clientId
+  displayName: Client name
+  type: string
 
-trigger:
-- main
+- name: dccAccount
+  displayName: dcc account
+  type: string
 
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-- task: GoTool@0
-  inputs:
-    version: '1.21.5'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      echo 'Hello world'
-      cd access
-      ls -l
-      go help
-      go mod init
-      go get
-      go run main.go
+jobs:
+- job: Work
+  steps:
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        if [ "${{ parameters.dccAccount}}" == "True"]; then
+          MANAGEMENT_GROUP_NAME = "DT_CCMS_SERVICES"
+          echo $MANAGEMENT_GROUP_NAME
+        else
+          echo $MANAGEMENT_GROUP_NAME
+        fi
+      
+    displayName: 'Run a one-line script'
 
