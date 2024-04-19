@@ -16,7 +16,7 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        if [ "${{ parameters.dccAccount }}" == "True"]; then
+        if [ "${{ parameters.dccAccount }}" == "True" ]; then
           MANAGEMENT_GROUP_NAME = "DT_CCMS_SERVICES"
           echo $MANAGEMENT_GROUP_NAME
         else
