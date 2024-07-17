@@ -1,27 +1,30 @@
+
 trigger: none
 
-parameters:
-- name: clientId
-  displayName: Client name
-  type: string
-
-- name: dccAccount
-  displayName: dcc account
-  type: string
+pool:
+  vmImage: 'ubuntu-latest'
 
 jobs:
-- job: Work
+- job: Build
+  displayName: 'Build job'
   steps:
   - task: Bash@3
     inputs:
       targetType: 'inline'
       script: |
-        if [ "${{ parameters.dccAccount }}" == "True" ]; then
-          MANAGEMENT_GROUP_NAME = "DT_CCMS_SERVICES"
-          echo $MANAGEMENT_GROUP_NAME
-        else
-          echo $MANAGEMENT_GROUP_NAME
-        fi
-      
-    displayName: 'Run a one-line script'
+        # Write your commands here
+        
+        echo 'Hello world'
+- job: WaitForValidation
+  pool: server
+  displayName: Wait for approval
+  timeoutInMinutes: 30
+  steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 30 # task times out in 30 minutes
+      inputs:
+        notifyUsers: |
+          zaki.spofy@gmail.com
+          zakaria.itispin@gmail.com
+        instructions: 'Approve the Terraform Apply'
 
