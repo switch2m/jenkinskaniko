@@ -26,5 +26,6 @@ jobs:
         notifyUsers: |
           zaki.spofy@gmail.com
           zakaria.itispin@gmail.com
+          zack.fatouh@outlook.fr
         instructions: 'Approve the Terraform Apply'
 
