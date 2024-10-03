@@ -4,28 +4,33 @@ trigger: none
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+- group: PIPELINE-VARIABLES
+
 jobs:
 - job: Build
   displayName: 'Build job'
   steps:
-  - task: Bash@3
+  - task: AWSShellScript@1
+    displayName: 'manage AWS organizational units and move accounts'
     inputs:
-      targetType: 'inline'
-      script: |
-        # Write your commands here
+      awsCredentials: 'svc-test'
+      regionName: 'us-east-1'
+      scriptType: inline
+      inlineScript: |
+        echo "Executing Access provisioning script on AWS side..."
+        #Assume OU management Role
+        SESSION_NAME="automation-pipeline-$(date +%Y%m%d%H%M%S)"
+        output=$(aws sts assume-role --role-arn "$AWS_ROLE" --role-session-name "$SESSION_NAME" --external-id "$EXT_ID")
         
-        echo 'Hello world'
-- job: WaitForValidation
-  pool: server
-  displayName: Wait for approval
-  timeoutInMinutes: 30
-  steps:
-    - task: ManualValidation@0
-      timeoutInMinutes: 30 # task times out in 30 minutes
-      inputs:
-        notifyUsers: |
-          zaki.spofy@gmail.com
-          zakaria.itispin@gmail.com
-          zack.fatouh@outlook.fr
-        instructions: 'Approve the Terraform Apply'
+        # Read the temporary credentials
+        aws_access_key_id=$(echo $output | jq -r '.Credentials.AccessKeyId')
+        aws_secret_access_key=$(echo $output | jq -r '.Credentials.SecretAccessKey')
+        aws_session_token=$(echo $output | jq -r '.Credentials.SessionToken')
 
+        # Use the temporary credentials
+        export AWS_ACCESS_KEY_ID=$aws_access_key_id
+        export AWS_SECRET_ACCESS_KEY=$aws_secret_access_key
+        export AWS_SESSION_TOKEN=$aws_session_token
+        
+        aws s3 ls
