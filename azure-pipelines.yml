@@ -35,6 +35,9 @@ jobs:
         
         aws s3 ls
 
+- job: run
+  displayName: 'Build Run'
+  steps:
   - task: AWSShellScript@1
     displayName: 'mAFASs'
     inputs:
