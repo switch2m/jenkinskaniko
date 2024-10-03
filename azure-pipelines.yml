@@ -34,3 +34,13 @@ jobs:
         export AWS_SESSION_TOKEN=$aws_session_token
         
         aws s3 ls
+
+  - task: AWSShellScript@1
+    displayName: 'mAFASs'
+    inputs:
+      awsCredentials: 'nop'
+      regionName: 'us-east-1'
+      scriptType: inline
+      inlineScript: |
+        echo "Executing Access provisioning script on AWS side..."
+        aws s3 ls
