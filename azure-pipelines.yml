@@ -18,6 +18,8 @@ jobs:
       regionName: 'us-east-1'
       scriptType: inline
       inlineScript: |
+        echo ""
+        echo $(build.buildid)
         echo "Executing Access provisioning script on AWS side..."
         #Assume OU management Role
         SESSION_NAME="automation-pipeline-$(date +%Y%m%d%H%M%S)"
@@ -48,6 +50,8 @@ jobs:
       scriptType: inline
       inlineScript: |
         echo "Executing Access provisioning script on AWS side..."
+
         echo $AWS_ACCESS_KEY_ID
         echo *AWS_SESSION_TOKEN
         aws s3 ls
+        echo $(build.buildid)
